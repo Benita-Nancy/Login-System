@@ -1,0 +1,43 @@
+{
+    "name": "@types/consolidate",
+    "version": "0.14.1",
+    "description": "TypeScript definitions for consolidate",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/consolidate",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Carlos Ballesteros Velasco",
+            "url": "https://github.com/soywiz",
+            "githubUsername": "soywiz"
+        },
+        {
+            "name": "Theo Sherry",
+            "url": "https://github.com/theosherry",
+            "githubUsername": "theosherry"
+        },
+        {
+            "name": "Nicolas Henry",
+            "url": "https://github.com/nicolashenry",
+            "githubUsername": "nicolashenry"
+        },
+        {
+            "name": "Andrew Leedham",
+            "url": "https://github.com/AndrewLeedham",
+            "githubUsername": "AndrewLeedham"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/consolidate"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/bluebird": "*",
+        "@types/node": "*"
+    },
+    "typesPublisherContentHash": "1f42c7b3346c6745f55acdb977e687db627ff2823675d80b974c014c5ba18df6",
+    "typeScriptVersion": "3.6"
+}
