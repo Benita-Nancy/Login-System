@@ -13,8 +13,6 @@ import session from "express-session"
 
 
 
-
-
 // Our Express APP config
 const app = express();
 app.use(express.json());
@@ -39,7 +37,7 @@ app.listen(process.env.PORT ||PORT,()=>{
     console.log(`Port is open at ${PORT}`)
 
 })
-
+ 
 
 //connecting to mongodb
 const url='mongodb://user:abc123@localhost:27017/?authMechanism=DEFAULT&authSource=users'
@@ -69,35 +67,21 @@ app.get('/register',(req,res)=>{
     res.render('register')
 })
 
-
 //POST method for login page
 app.post('/login', async(req,res)=> {
     const user={
         email: req.body.email,
-        password: await bcrypt.hash(req.body.password,10)
-    }
-    const hashedpwd=JSON.stringify(db.collection('regusers').findOne({password: {$eq: user.password}}))
-    const passw=  bcrypt.compare(req.body.password,hashedpwd) 
-    db.collection('regusers').findOne({email:{$eq: user.email}})
-    .then((email)=>{
-              
-            if(email && passw){
-                res.redirect('/Events')
-             }
-
-            else{
-                const error='No user found or wrong credentials'
-                
-
-                res.render('login',{error:error})
-                console.log("No user found or wrong credentials")
-            }
-            })
-        })
-
+        password: await bcrypt.hash(req.body.password,10)    }
+        const hashedpwd=JSON.stringify(db.collection('regusers').findOne({password: {$eq: user.password}}))
+        const passw=  JSON.stringify(bcrypt.compare(user.password,hashedpwd) )
+        let email=db.collection('regusers').findOne({email:{$eq: user.email}})
+     
+     // const result =  db.collection('regusers').find({},{ projection: { _id: 0, firstname:0,lastname:0,email: 1, password: 1 } }).toArray          
+   res.render('login',{hashedpwd:hashedpwd,passw:passw,email:email})
+  
+    })
 //register user using POST method with encrypted password
-app.post('/register',async(req,res)=>{
-
+app.post('/register',async(req,res)=>{ 
 
 
     const data =({
@@ -107,8 +91,7 @@ app.post('/register',async(req,res)=>{
         email: req.body.email,
         password: await bcrypt.hash(req.body.password,10)
     })
-       
-    
+
        db.collection('regusers').findOne({email: req.body.email})
        .then((email)=>{
     
@@ -116,9 +99,9 @@ app.post('/register',async(req,res)=>{
             let errors='Email already exists'
            
             res.render('register',{
-               
                errors:errors
             })
+
         console.log("User already exist")
            
         }
@@ -127,12 +110,11 @@ app.post('/register',async(req,res)=>{
             const success='Successfully registered'
             res.render('index',{success:success})
         }
-    
+
        })
         
        })
-           
-    
+             
     
 
 app.get('/Events',(req,res)=>{
@@ -145,8 +127,11 @@ app.get('/Events',(req,res)=>{
     })
 })
 
+app.close('/close',(req,res)=>{
+console.log("Process is complete")
+process.exit()
 
-
+})
 
 
        

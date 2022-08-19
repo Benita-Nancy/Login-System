@@ -1,7 +1,12 @@
+
+
+
+
+
 <h1>Login</h1>
 
 <!-- Take inputs for registration -->
-<form action="/login" method="POST">
+<form action="/login " method="POST">
     
 
 <div>
@@ -16,16 +21,52 @@
     required>
 </div>
 <br>
-<button type="submit">Login </button>
+
+<button id="button" class="float-left submit-button">Login </button>
+<script type="text/javascript">
+document.getElementById("button").onclick = function (){
+    var xhr=new XMLHttpRequest()
+    xhr.open('POST','/login',true)
+    xhr.onload= function(){
+        if(this.status==200){
+       
+        if(email && passw){
+        location.href="/Events"
+     }
+
+    else{
+        const error='No user found or wrong credentials'
+        location.href="/register"
+
+        console.log("No user found or wrong credentials")
+    }}
+    }
+
+    
+
+xhr.send()
+}
+
+
+
+
+ </script>
+    
+    
 
 </form>
 <br>
 <a href="/register">Register</a>
 
 <body>
+    
     <div class="error">
         {{#error}}
         <p name="id" value="{{error}} "
+     
         href="/login">{{error}}</p>
         {{/error}}
 </body>
+
+
+
